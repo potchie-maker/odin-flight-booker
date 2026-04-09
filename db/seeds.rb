@@ -11,3 +11,12 @@
 ["PHL", "ATL", "ABQ", "CLO", "GRR", "JAX", "LDY", "ZRH", "BLK", "GUM"].each do |code|
   Airport.find_or_create_by!(airport_code: code)
 end
+
+Airports.all.each do |airport|
+  rand_ap_id = Airport.ids.sample
+  unless airport.id == rand_ap_id
+    airport.departing_flights.find_or_create_by!(arrival_airport: Airport.find(rand_ap_id),
+                                                 start_datetime: rand(1.years).seconds.from_now,
+                                                 flight_duration: rand(60..300))
+  end
+end

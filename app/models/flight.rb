@@ -4,4 +4,6 @@ class Flight < ApplicationRecord
 
   validates :departure_airport, presence: true
   validates :arrival_airport, presence: true
+  validates :start_datetime, presence: true
+  validates :flight_duration, presence: true
 end
