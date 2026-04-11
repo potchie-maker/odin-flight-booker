@@ -12,7 +12,7 @@
   Airport.find_or_create_by!(airport_code: code)
 end
 
-Airports.all.each do |airport|
+Airport.all.each do |airport|
   rand_ap_id = Airport.ids.sample
   unless airport.id == rand_ap_id
     airport.departing_flights.find_or_create_by!(arrival_airport: Airport.find(rand_ap_id),

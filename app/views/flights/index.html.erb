@@ -1,0 +1,28 @@
+<% content_for :title, "Flights" %>
+
+<%= form_with url: "/flights", method: :get do |f| %>
+  <div>
+    <%= f.label :departure_airport, "Departure Airport:" %>
+    <%= f.select :departure_airport, @departure_options, prompt: true %>
+  </div>
+  <div>
+    <%= f.label :arrival_airport, "Arrival Airport:" %>
+    <%= f.select :arrival_airport, @arrival_options, prompt: true %>
+  </div>
+  <div>
+    <%= f.label :num_of_passengers, "Number of Passengers:" %>
+    <%= f.select :num_of_passengers, 1..4, prompt: true %>
+  </div>
+  <div>
+    <%= f.label :start_datetime, "Departure Date:" %>
+    <%= f.select :start_datetime, @date_options, prompt: true %>
+  </div>
+  <%= f.submit "Search" %>
+<% end %>
+
+<% if @searched_flights %>
+  <% @searched_flights.each do |f| %>
+    <%= f.departure_airport.airport_code %>
+    <%= f.arrival_airport.airport_code %>
+  <% end %>
+<% end %>
