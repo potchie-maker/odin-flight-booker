@@ -21,15 +21,7 @@
 <% end %>
 
 <% if @searched_flights %>
-  <% @searched_flights[:by_dep_airport].each do |f| %>
-    <%= f.departure_airport.airport_code %>
-    <%= f.arrival_airport.airport_code %>
-  <% end %>
-  <% @searched_flights[:by_arr_airport].each do |f| %>
-    <%= f.departure_airport.airport_code %>
-    <%= f.arrival_airport.airport_code %>
-  <% end %>
-  <% @searched_flights[:by_start_date].each do |f| %>
+  <% @searched_flights.each do |f| %>
     <%= f.departure_airport.airport_code %>
     <%= f.arrival_airport.airport_code %>
   <% end %>

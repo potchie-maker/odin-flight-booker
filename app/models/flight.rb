@@ -9,20 +9,16 @@ class Flight < ApplicationRecord
 
 
   def self.get_flights_from_search(dep_ap_code, arr_ap_code, start_date)
-    # Flight.where(departure_airport: Airport.find_by(airport_code: dep_ap_code))
-    #   .or(Flight.where(arrival_airport: Airport.find_by(airport_code: arr_ap_code)))
-    #   .or(Flight.where(start_datetime: start_date)).order("departure_airport_id", "arrival_airport_id")
+    # place results in array in order of criteria importance
+    search_results = []
 
-    # Flight.where("departure_airport_id = ? OR arrival_airport_id = ? OR start_datetime = ?",
-    #              Airport.find_by(airport_code: dep_ap_code), Airport.find_by(airport_code: arr_ap_code), start_date)
+    by_dep_airport = Flight.where(departure_airport: Airport.find_by(airport_code: dep_ap_code))
+    by_arr_airport = Flight.where(arrival_airport: Airport.find_by(airport_code: arr_ap_code))
+    by_start_date = Flight.where(start_datetime: start_date)
 
-    search_results = {}
-    # this method of saving the options in a hash allows me to order the results based on more important criteria
-    search_results[:by_dep_airport] = Flight.where(departure_airport: Airport.find_by(airport_code: dep_ap_code))
-    search_results[:by_arr_airport] = Flight.where(arrival_airport: Airport.find_by(airport_code: arr_ap_code))
-    search_results[:by_start_date] = Flight.where(start_datetime: start_date)
+    search_results << by_dep_airport << by_arr_airport << by_start_date
 
-    return search_results
+    return search_results.flatten
   end
 
 # Source - https://stackoverflow.com/a/15721423
