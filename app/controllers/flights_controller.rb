@@ -21,7 +21,10 @@ class FlightsController < ApplicationController
       @searched_flights = Flight.get_flights_from_search(search_params[:departure_airport],
                                                          search_params[:arrival_airport],
                                                          search_params[:start_datetime])
+      @num_of_passengers = search_params[:num_of_passengers]
     end
+
+    @booking = Booking.new
   end
 
   private
