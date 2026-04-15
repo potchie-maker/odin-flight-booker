@@ -1,1 +1,18 @@
 <% content_for :title, "Book Flight" %>
+
+<%= form_with model: @booking do |f| %>
+  <%= f.hidden_field :flight_id, value: @booking.flight.id %>
+  <%= f.hidden_field :num_of_passengers, value: @booking.num_of_passengers %>
+  <%= f.fields_for :passengers do |p_form| %>
+    <%= "Passenger ##{p_form.index + 1}" %>
+    <div>
+      <%= p_form.label :name %>
+      <%= p_form.text_field :name %>
+    </div>
+    <div>
+      <%= p_form.label :email %>
+      <%= p_form.email_field :email %>
+    </div>
+  <% end %>
+  <%= f.submit %>
+<% end %>
