@@ -3,19 +3,19 @@
 <%= form_with url: "/flights", method: :get do |f| %>
   <div>
     <%= f.label :departure_airport, "Departure Airport:" %>
-    <%= f.select :departure_airport, @departure_options, prompt: true %>
+    <%= f.select :departure_airport, options_for_select(@departure_options, @search_params[:departure_airport]), prompt: true %>
   </div>
   <div>
     <%= f.label :arrival_airport, "Arrival Airport:" %>
-    <%= f.select :arrival_airport, @arrival_options, prompt: true %>
+    <%= f.select :arrival_airport, options_for_select(@arrival_options, @search_params[:arrival_airport]), prompt: true %>
   </div>
   <div>
     <%= f.label :num_of_passengers, "Number of Passengers:" %>
-    <%= f.select :num_of_passengers, 1..4 %>
+    <%= f.select :num_of_passengers, options_for_select(1..4, @search_params[:num_of_passengers]) %>
   </div>
   <div>
     <%= f.label :start_datetime, "Departure Date:" %>
-    <%= f.select :start_datetime, @date_options, prompt: true %>
+    <%= f.select :start_datetime, options_for_select(@date_options, @search_params[:start_datetime]), prompt: true %>
   </div>
   <%= f.submit "Search" %>
 <% end %>

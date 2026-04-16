@@ -13,15 +13,15 @@ class FlightsController < ApplicationController
     # Maybe adding and accessing via index is the way to go? Like using the index as the selected option instead of the
     # literal date. Seems closer to saving an :id and more straightforwared.
 
-    search_params = flight_search_params
+    @search_params = flight_search_params
     # assigned search params to a variable because it makes the method only be called once
     # so I THINK that it might offer slightly more efficiency/speed
     # otherwise, I can just access directly from params as I wrote over the private method
-    unless search_params.empty?
-      @searched_flights = Flight.get_flights_from_search(search_params[:departure_airport],
-                                                         search_params[:arrival_airport],
-                                                         search_params[:start_datetime])
-      @num_of_passengers = search_params[:num_of_passengers]
+    if all_search_fields_filled?(@search_params)
+      @searched_flights = Flight.get_flights_from_search(@search_params[:departure_airport],
+                                                         @search_params[:arrival_airport],
+                                                         @search_params[:start_datetime])
+      @num_of_passengers = @search_params[:num_of_passengers]
     end
 
     @booking = Booking.new
@@ -33,5 +33,11 @@ class FlightsController < ApplicationController
   # so I can safely just access these directly from params
   def flight_search_params
     params.permit(:departure_airport, :arrival_airport, :num_of_passengers, :start_datetime, :commit)
+  end
+
+  def all_search_fields_filled?(search_params)
+    search_params[:departure_airport].present? &&
+    search_params[:arrival_airport].present? &&
+    search_params[:start_datetime].present?
   end
 end
