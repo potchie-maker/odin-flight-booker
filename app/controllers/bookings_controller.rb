@@ -3,11 +3,16 @@ class BookingsController < ApplicationController
   before_action :set_booking, only: [:show]
 
   def show
+    @flight = @booking.flight
+    @departure_airport = @flight.departure_airport
+    @arrival_airport = @flight.arrival_airport
+    @passengers = @booking.passengers
   end
 
   def new
     @booking = Booking.build(booking_params)
     @booking.num_of_passengers.times { @booking.passengers.build }
+    @flight = @booking.flight
   end
 
   def create

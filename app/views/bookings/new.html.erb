@@ -1,5 +1,9 @@
 <% content_for :title, "Book Flight" %>
 
+<h3>Selected Flight</h3>
+<%= render @flight %>
+
+<h3>Passenger Information</h3>
 <%= form_with model: @booking do |f| %>
   <%= f.hidden_field :flight_id, value: @booking.flight.id %>
   <%= f.hidden_field :num_of_passengers, value: @booking.num_of_passengers %>

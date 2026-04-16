@@ -1,0 +1,12 @@
+<div>
+  <strong>Airports:</strong>
+  <%= "#{flight.departure_airport.airport_code} -> #{flight.arrival_airport.airport_code}" %>
+</div>
+<div>
+  <strong>Departure Date:</strong>
+  <%= flight.start_datetime_formatted %>
+</div>
+<div>
+  <strong>Duration:</strong>
+  <%= "#{flight.duration_in_min} min"%>
+</div>
